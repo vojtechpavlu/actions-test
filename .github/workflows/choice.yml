@@ -1,0 +1,18 @@
+name: Check
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticket:
+        type: choice
+        description: ⚠️ Have you created a ticket? ⚠️
+        required: true
+        options: 
+        - Yes ✅
+
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check the ticket
+      run: echo ${{ inputs.ticket }}
