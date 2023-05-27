@@ -15,6 +15,8 @@ jobs:
     - name: Print ticket number
       run: echo ${{ inputs.ticket }}
       
-    - name: Check the ticket
+    - name: Is ticket OK?
       if: ${{ !startsWith(inputs.ticket, 'CR-') }}
-      run: exit 1
+      run: |
+        echo "Given ticket number is not valid. Has to start with 'CR-'"
+        exit 1
