@@ -12,11 +12,17 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-    - name: Print ticket number
+    - name: Print ticket answer
       run: echo ${{ inputs.ticket }}
       
+    - name: Is valid ticket
+      run: echo ${{ startsWith(inputs.ticket, 'CR-') }}
+      
+    - name: Should skip
+      run: echo ${{ contains(inputs.ticket, 'skip') }}
+      
     - name: Is ticket OK?
-      if: ${{ !startsWith(inputs.ticket, 'CR-')  }} || ${{ !contains(inputs.ticket, 'skip') }}
+      if: ${{ (!startsWith(inputs.ticket, 'CR-') || !contains(inputs.ticket, 'skip')) }}
       run: |
         echo "Given ticket number is not valid and you didn't wanted to skip that."
         exit 1
