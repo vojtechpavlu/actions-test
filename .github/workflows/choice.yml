@@ -5,7 +5,7 @@ on:
     inputs:
       ticket:
         type: string
-        description: ⚠️ Show me your ticket! ⚠️
+        description: ⚠️ Show me your ticket! For testing purposes has to start with 'CR-' ⚠️
         required: true
 
 jobs:
