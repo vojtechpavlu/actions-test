@@ -20,3 +20,6 @@ jobs:
       run: |
         echo "Given ticket number is not valid. Has to start with 'CR-'"
         exit 1
+    
+    - name: If ticket OK
+      run: echo "Everything is OK then!"
