@@ -4,15 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       ticket:
-        type: choice
-        description: ⚠️ Have you created a ticket? ⚠️
+        type: string
+        description: ⚠️ Show me your ticket! ⚠️
         required: true
-        options: 
-        - Yes ✅
 
 jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-    - name: Check the ticket
+    - name: Print ticket number
       run: echo ${{ inputs.ticket }}
+      
+    - name: Check the ticket
+      if: ${{ !startsWith(inputs.ticket, "CR-") }}
+      run: exit 1
