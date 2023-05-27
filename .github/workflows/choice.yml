@@ -5,7 +5,7 @@ on:
     inputs:
       ticket:
         type: string
-        description: ⚠️ Show me your ticket! For testing purposes has to start with 'CR-' ⚠️
+        description: ⚠️CAREFUL!⚠️ Show me your ticket starting with 'CR-'! If you want to skip it, type 'skip'.
         required: true
 
 jobs:
@@ -16,9 +16,9 @@ jobs:
       run: echo ${{ inputs.ticket }}
       
     - name: Is ticket OK?
-      if: ${{ !startsWith(inputs.ticket, 'CR-') }}
+      if: ${{ !startsWith(inputs.ticket, 'CR-') || !constains(inputs.ticket, 'skip') }}
       run: |
-        echo "Given ticket number is not valid. Has to start with 'CR-'"
+        echo "Given ticket number is not valid and you didn't wanted to skip that."
         exit 1
     
     - name: If ticket OK
