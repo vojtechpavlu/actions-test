@@ -5,7 +5,7 @@ on:
     inputs:
       ticket:
         type: string
-        description: ⚠️CAREFUL!⚠️ Show me your ticket starting with 'CR-'! If you want to skip it, type 'skip'.
+        description: ⚠️ Fill in your ticket starting with 'CR-' or skip it by 'skip'.
         required: true
 
 jobs:
