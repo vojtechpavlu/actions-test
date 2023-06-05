@@ -8,6 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Infinite job
-      run: watch -v
-    - name: IFasdfs
-      run: free -v
+      run: echo -e "\nfrom time import sleep\ni=0\nwhile True:\n\ti + 1\n\tsleep(1)" | python 
