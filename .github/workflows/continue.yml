@@ -8,4 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Infinite job
-      run: watch -n 1 free -m
+      run: watch -v
+    - name: IFasdfs
+      run: free -v
