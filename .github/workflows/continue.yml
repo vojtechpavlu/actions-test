@@ -7,5 +7,9 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-    - name: Do infinite job
-      run: watch -n 1 echo "I'm still working..."
+    - name: |
+        while :
+        do
+          echo "Press [CTRL+C] to stop.."
+          sleep 1
+        done
