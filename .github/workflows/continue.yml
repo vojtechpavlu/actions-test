@@ -18,4 +18,4 @@ jobs:
     # After any issue
     - name: Do after
       if: ${{ always() }}
-      run: "Finished infinite loop"
+      run: echo "Finished infinite loop"
