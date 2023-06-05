@@ -1,4 +1,4 @@
-name: Check
+name: Continue
 
 on:
   workflow_dispatch:
