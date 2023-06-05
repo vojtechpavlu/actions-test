@@ -1,0 +1,11 @@
+name: Check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Do infinite job
+      run: watch -n 1 echo "I'm still working..."
