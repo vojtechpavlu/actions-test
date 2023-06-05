@@ -7,5 +7,15 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
+    
+    # Every second adds 1 to variable i
     - name: Infinite job
-      run: echo -e "\nfrom time import sleep\ni=0\nwhile True:\n\ti + 1\n\tsleep(1)" | python 
+      run: echo -e "\nfrom time import sleep\ni=0\nwhile True:\n\ti + 1\n\tsleep(1)" | python
+    
+    - name: Wont be ever done
+      run: echo "This wont be ever printed"
+    
+    # After any issue
+    - name: Do after
+      if: ${{ always() }}
+      run: "Finished infinite loop"
