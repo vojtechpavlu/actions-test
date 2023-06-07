@@ -27,12 +27,25 @@ jobs:
       - name: Get the code (Checkout)
         uses: actions/checkout@v2
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
       - name: Get the environment
         run: echo ${{env.ENVIRONMENT}}
 
       - name: List directories
         run: ls -la
 
-      - name: Print Working Directory
-        run: echo './terraform/${{env.ENVIRONMENT}}'
+      - name: Get to Working directory
+        run: cd './terraform/${{env.ENVIRONMENT}}'
 
+      - name: Run Terraform
+        run: |
+          terraform init
+          terraform plan
+          terraform apply -auto-approve
+
+      - name: Check the TF work
+        run: cat '${{env.ENVIRONMENT}}_file.txt'
