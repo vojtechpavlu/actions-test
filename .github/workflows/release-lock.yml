@@ -23,7 +23,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ENVIRONMENT: ${{inputs.desired_environment}}
-      WORKING_DIRECTORY: ${{steps.get_work_dir.outputs.wd}}
     steps:
       - name: Get the code (Checkout)
         uses: actions/checkout@v2
@@ -35,10 +34,12 @@ jobs:
 
       - name: Get to Working directory
         id: get_work_dir
-        run: echo "wd='./terraform/${{env.ENVIRONMENT}}'" >> "$GITHUB_OUTPUT"
+        run: |
+          wd_var='./terraform/${{env.ENVIRONMENT}}'
+          echo "working_directory=$wd_var" >> "$GITHUB_OUTPUT"
 
       - name: Check Working directory
-        run: echo ${{env.WORKING_DIRECTORY}}
+        run: echo ${{steps.get_work_dir.outputs.working_directory}}
 
 #      - name: Run Terraform
 #        run: |
