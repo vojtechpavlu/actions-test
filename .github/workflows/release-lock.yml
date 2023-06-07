@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ENVIRONMENT: ${{inputs.desired_environment}}
+      WORKING_DIRECTORY: ${{steps.get_work_dir.outputs.wd}}
     steps:
       - name: Get the code (Checkout)
         uses: actions/checkout@v2
@@ -32,23 +33,18 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Get the environment
-        run: echo ${{env.ENVIRONMENT}}
-
-      - name: List directories
-        run: ls -la
-
       - name: Get to Working directory
-        run: cd './terraform/${{env.ENVIRONMENT}}'
+        id: get_work_dir
+        run: echo "wd='./terraform/${{env.ENVIRONMENT}}'" >> "$GITHUB_OUTPUT"
 
       - name: Check Working directory
-        run: pwd
+        run: echo ${{env.WORKING_DIRECTORY}}
 
-      - name: Run Terraform
-        run: |
-          terraform init
-          terraform plan
-          terraform apply -auto-approve
+#      - name: Run Terraform
+#        run: |
+#          terraform init
+#          terraform plan
+#          terraform apply -auto-approve
 
-      - name: Check the TF work
-        run: cat '${{env.ENVIRONMENT}}_file.txt'
+#      - name: Check the TF work
+#        run: cat '${{env.ENVIRONMENT}}_file.txt'
