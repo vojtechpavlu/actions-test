@@ -1,0 +1,26 @@
+name: Release Lock
+
+on:
+  workflow_dispatch:
+    inputs:
+      desired_environment:
+        type: choice
+        description: Pick environment you want to release lock from
+        required: true
+        options:
+          - test
+          - dev
+          - prod
+          - commons
+
+env:
+  TF_VERSION: 1.4.6
+  AWS_DEFAULT_REGION: "eu-west-1"
+
+jobs:
+  release-lock:
+    name: Force releasing Lock in ${{inputs.desired_environment}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Get the environment"
+        run: echo ${{inputs.desired_environment}}
