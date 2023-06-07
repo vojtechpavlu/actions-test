@@ -41,11 +41,12 @@ jobs:
       - name: Check Working directory
         run: echo ${{steps.get_work_dir.outputs.working_directory}}
 
-#      - name: Run Terraform
-#        run: |
-#          terraform init
-#          terraform plan
-#          terraform apply -auto-approve
+      - name: Run Terraform
+        run: |
+          terraform init
+          terraform plan
+          terraform apply -auto-approve
+        working-directory: ${{steps.get_work_dir.outputs.working_directory}}
 
-#      - name: Check the TF work
-#        run: cat '${{env.ENVIRONMENT}}_file.txt'
+      - name: Check the TF work
+        run: cat '${{steps.get_work_dir.outputs.working_directory}}/${{env.ENVIRONMENT}}_file.txt'
