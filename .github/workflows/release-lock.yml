@@ -21,6 +21,18 @@ jobs:
   release-lock:
     name: Force releasing Lock in ${{inputs.desired_environment}}
     runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: ${{inputs.desired_environment}}
     steps:
-      - name: "Get the environment"
-        run: echo ${{inputs.desired_environment}}
+      - name: Get the code (Checkout)
+        uses: actions/checkout@v2
+
+      - name: Get the environment
+        run: echo ${{env.ENVIRONMENT}}
+
+      - name: List directories
+        run: ls -la
+
+      - name: Print Working Directory
+        run: echo './terraform/${{env.ENVIRONMENT}}'
+
