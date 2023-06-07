@@ -41,6 +41,9 @@ jobs:
       - name: Get to Working directory
         run: cd './terraform/${{env.ENVIRONMENT}}'
 
+      - name: Check Working directory
+        run: pwd
+
       - name: Run Terraform
         run: |
           terraform init
