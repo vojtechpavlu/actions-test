@@ -11,7 +11,7 @@ jobs:
   setup-backend:
     strategy:
       matrix:
-        environment: ["dev", "test", "prod"]   # Run for all the environments
+        environment: ["dev", "test", "prod", "global"]   # Run for all the environments
 
     name: Backend setup for ${{ matrix.environment }}
     runs-on: ubuntu-latest
@@ -41,7 +41,8 @@ jobs:
           terraform apply -auto-approve -var="environment=$env_name"
         working-directory: ${{steps.workdir-setup.outputs.working_directory}}
 
-#      - name: Destroy if not success
-#        if: ${{ failure() }}
-#        run: |
-#          terraform destroy
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: infrastructure_ids
+          path: ${{ steps.workdir-setup.output.working_directory }}/state_output.txt
