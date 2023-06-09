@@ -10,19 +10,21 @@ on:
 
 jobs:
   my-job:
+    env:
+      USER-INPUT: ${{ inputs.ticket }}
     runs-on: ubuntu-latest
     steps:
     - name: Print ticket answer
-      run: echo ${{ inputs.ticket }}
+      run: echo ${{ env.USER-INPUT }}
       
     - name: Is valid ticket
-      run: echo ${{ startsWith(inputs.ticket, 'CR-') }}
+      run: echo ${{ startsWith(env.USER-INPUT, 'CR-') }}
       
     - name: Should skip
-      run: echo ${{ contains(inputs.ticket, 'skip') }}
+      run: echo ${{ contains(env.USER-INPUT, 'skip') }}
       
     - name: Is ticket OK?
-      if: ${{ (!startsWith(inputs.ticket, 'CR-') && !contains(inputs.ticket, 'skip')) }}
+      if: ${{ (!startsWith(env.USER-INPUT, 'CR-') && !contains(env.USER-INPUT, 'skip')) }}
       run: |
         echo "Given ticket number is not valid and you didn't wanted to skip that."
         exit 1
