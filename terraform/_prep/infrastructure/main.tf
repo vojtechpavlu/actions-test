@@ -1,7 +1,7 @@
 module "vpc" {
   source                      = "./vpc"
   ip_cidr_range               = "10.0.0.0/16"
-  associate_public_id_address = true
+  associate_public_ip_address = true
 }
 
 resource "local_file" "ids_of_resources" {
