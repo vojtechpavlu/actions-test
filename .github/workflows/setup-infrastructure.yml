@@ -37,5 +37,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: infrastructure-ids
-          path: "./terraform/_prep/infrastructure/ids.txt"
+          name: infrastructure_ids
+          path: "./terraform/_prep/infrastructure/infrastructure_ids.txt"

@@ -25,11 +25,11 @@ module "prod_subnet" {
 }
 
 resource "local_file" "ids_of_resources" {
-  filename = "${path.module}/ids.txt"
+  filename = "${path.module}/infrastructure_ids.txt"
   content  = <<EOF
-VPC:${module.vpc.vpc_id}
-DEV:${module.dev_subnet.subnet_id}
-TEST:${module.test_subnet.subnet_id}
-PROD:${module.prod_subnet.subnet_id}
+VPC ID: ${module.vpc.vpc_id}
+DEV ID: ${module.dev_subnet.subnet_id}
+TEST ID: ${module.test_subnet.subnet_id}
+PROD ID: ${module.prod_subnet.subnet_id}
 EOF
 }
