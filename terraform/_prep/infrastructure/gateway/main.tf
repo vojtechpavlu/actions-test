@@ -15,13 +15,10 @@ resource "aws_route_table" "route_table" {
 module "routes" {
   source = "./route"
 
-  for_each = {
-    for index, subnet in var.subnets :
-      subnet.subnet_id => subnet
-  }
+  count = length(var.subnets)
 
-  ig_id          = aws_internet_gateway.ig
+  ig_id          = aws_internet_gateway.ig.id
   route_table_id = aws_route_table.route_table.id
-  cidr_blocks    = each.value.cidr_blocks
-  subnet_id      = each.value.subnet_id
+  cidr_blocks    = ["0.0.0.0/0"]
+  subnet_id      = var.subnets[count.index].subnet_id
 }
