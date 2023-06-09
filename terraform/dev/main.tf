@@ -51,5 +51,9 @@ EOF
 
 resource "local_file" "deployed_instance_metadata" {
   filename = "${path.module}/deployment_info.txt"
-  content  = jsondecode(module.instance)
+  content  = jsondecode({
+    id  = module.instance.instance_id
+    ip  = module.instance.public_ip
+    dns = module.instance.public_dns
+  })
 }
