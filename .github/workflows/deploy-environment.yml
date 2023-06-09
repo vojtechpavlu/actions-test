@@ -1,4 +1,4 @@
-name: Deploy environment
+name: Deploy Environment
 
 on:
   workflow_dispatch:
@@ -51,4 +51,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: deployment_info
-          path: '${{ WD }}/deployment_info.txt'
+          path: '${{ env.WD }}/deployment_info.txt'
