@@ -33,14 +33,14 @@ jobs:
         id: workdir-setup
         run: echo "working_directory=./terraform/_prep/backend" >> "$GITHUB_OUTPUT"
 
-#      - name: Run Terraform
-#        run: |
-#          env_name=${{env.ENVIRONMENT}}
-#          terraform init
-#          terraform plan -var="environment=$env_name"
-#          terraform apply -auto-approve
-#        working-directory: ${{steps.workdir-setup.outputs.working_directory}}
-#
+      - name: Run Terraform
+        run: |
+          env_name=${{env.ENVIRONMENT}}
+          terraform init
+          terraform plan -var="environment=$env_name"
+          terraform apply -auto-approve
+        working-directory: ${{steps.workdir-setup.outputs.working_directory}}
+
 #      - name: Destroy if not success
 #        if: ${{ failure() }}
 #        run: |
