@@ -37,7 +37,7 @@ module "egress_all" {
   source      = "./sg_rule"
   cidr_blocks = var.egress_cidr
   port        = 0
-  protocol    = "tcp"
+  protocol    = "-1"
   rule_type   = "egress"
   sg_id       = aws_security_group.sg.id
 }
