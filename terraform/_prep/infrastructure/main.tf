@@ -1,6 +1,7 @@
 module "vpc" {
-  source        = "./vpc"
-  ip_cidr_range = "10.0.0.0/16"
+  source                  = "./vpc"
+  ip_cidr_range           = "10.0.0.0/16"
+  map_public_ip_on_launch = true
 }
 
 resource "local_file" "ids_of_resources" {
@@ -12,6 +13,6 @@ DEV ID: ${module.dev_subnet.subnet_id}
 TEST ID: ${module.test_subnet.subnet_id}
 PROD ID: ${module.prod_subnet.subnet_id}
 
-SGs: ${module.security_groups}
+SGs: ${jsonencode(module.security_groups)}
 EOF
 }
