@@ -34,3 +34,8 @@ variable "key_name" {
   type        = string
   description = "Name of the key used for SSH connection"
 }
+
+variable "user_data" {
+  type        = string
+  description = "Set of shell commands to be executed on startup"
+}
