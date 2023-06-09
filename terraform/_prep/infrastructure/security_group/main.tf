@@ -4,7 +4,7 @@ resource "aws_security_group" "sg" {
 }
 
 module "ingress_tls" {
-  source      = "sg_rule"
+  source      = "./sg_rule"
   count       = var.allow_tls ? 1 : 0
   cidr_blocks = var.tls_ingress_cidr
   port        = 443
@@ -14,7 +14,7 @@ module "ingress_tls" {
 }
 
 module "ingress_ssh" {
-  source      = "sg_rule"
+  source      = "./sg_rule"
   count       = var.allow_ssh ? 1 : 0
   cidr_blocks = var.ssh_ingress_cidr
   port        = 22
@@ -24,7 +24,7 @@ module "ingress_ssh" {
 }
 
 module "ingress_http" {
-  source      = "sg_rule"
+  source      = "./sg_rule"
   count       = var.allow_http ? 1 : 0
   cidr_blocks = var.http_ingress_cidr
   port        = 8080
@@ -34,7 +34,7 @@ module "ingress_http" {
 }
 
 module "egress_all" {
-  source      = "sg_rule"
+  source      = "./sg_rule"
   cidr_blocks = var.egress_cidr
   port        = 0
   protocol    = "tcp"
