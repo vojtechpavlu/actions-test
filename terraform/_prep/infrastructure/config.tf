@@ -8,6 +8,7 @@ terraform {
 
   backend "s3" {
     bucket         = "global-terraform-testing-state-backend"
+    key            = "infrastructure/state"
     dynamodb_table = "global-terraform-testing-state-lock"
   }
 }
