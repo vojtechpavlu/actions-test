@@ -1,0 +1,46 @@
+name: Destroy Infrastructure
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        type: string
+        description: ⚠️ Are you sure you want to destroy the infrastructure? Type 'yes'
+        required: true
+
+env:
+  TF_VERSION: 1.4.6
+  AWS_DEFAULT_REGION: "us-east-1"
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  destroy-infrastructure:
+    name: Destroy Infrastructure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Answer check
+        if: ${{ !contains(inputs.confirm, 'yes') }}
+        run: |
+          echo "...Seems like you are not sure about that..."
+          echo "Not gonna destroy the infrastructure 😅"
+          exit 1
+
+      - name: Get the code (Checkout)
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Setup Working directory
+        id: workdir-setup
+        run: echo "working_directory=./terraform/_prep/infrastructure" >> "$GITHUB_OUTPUT"
+
+      - name: Run Terraform
+        run: |
+          terraform init
+          terraform destroy -auto-approve
+        working-directory: ${{steps.workdir-setup.outputs.working_directory}}
