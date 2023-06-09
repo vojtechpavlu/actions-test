@@ -10,6 +10,7 @@ terraform {
     bucket         = "global-terraform-testing-state-backend"
     key            = "infrastructure/state"
     dynamodb_table = "global-terraform-testing-state-lock"
+    region         = "us-east-1"
   }
 }
 

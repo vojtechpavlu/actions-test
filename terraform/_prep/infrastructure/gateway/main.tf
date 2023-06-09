@@ -12,7 +12,6 @@ resource "aws_route_table" "route_table" {
   }
 }
 
-
 module "routes" {
   source = "./route"
 

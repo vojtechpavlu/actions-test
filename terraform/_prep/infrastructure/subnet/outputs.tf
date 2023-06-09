@@ -7,5 +7,5 @@ output "subnet_name" {
 }
 
 output "subnet_cidr" {
-  value = var.ip_cidr_range
+  value = [var.ip_cidr_range]
 }
