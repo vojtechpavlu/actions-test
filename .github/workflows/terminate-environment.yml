@@ -1,0 +1,45 @@
+name: Terminate Environment
+
+on:
+  workflow_dispatch:
+    inputs:
+      desired-environment:
+        type: choice
+        description: Pick environment you want to terminate
+        required: true
+        options:
+          - dev
+          - test
+          - prod
+
+env:
+  TF_VERSION: 1.4.6
+  AWS_DEFAULT_REGION: "us-east-1"
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  setup-infrastructure:
+    name: Setup Infrastructure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get the code (Checkout)
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Setup Working directory
+        id: workdir-setup
+        run: |
+          working_directory='./terraform/${{inputs.desired-environment}}'
+          echo "working_directory=$working_directory" >> "$GITHUB_OUTPUT"
+
+      - name: Run Terraform
+        run: |
+          terraform init
+          terraform destroy -auto-approve
+        working-directory: ${{steps.workdir-setup.outputs.working_directory}}
