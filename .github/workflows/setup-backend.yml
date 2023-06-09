@@ -9,8 +9,9 @@ env:
 
 jobs:
   setup-backend:
-    matrix:
-      environment: ["dev", "test", "prod"]   # Run for all the environments
+    strategy:
+      matrix:
+        environment: ["dev", "test", "prod"]   # Run for all the environments
 
     name: Backend setup for ${{ matrix.environment }}
     runs-on: ubuntu-latest
