@@ -1,4 +1,4 @@
-module "dev_security_groups" {
+module "security_groups" {
   source = "./security_group"
 
   for_each = toset(["dev", "test", "prod"])
