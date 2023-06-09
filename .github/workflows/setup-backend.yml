@@ -38,7 +38,7 @@ jobs:
           env_name=${{env.ENVIRONMENT}}
           terraform init
           terraform plan -var="environment=$env_name"
-          terraform apply -auto-approve
+          terraform apply -auto-approve -var="environment=$env_name"
         working-directory: ${{steps.workdir-setup.outputs.working_directory}}
 
 #      - name: Destroy if not success
