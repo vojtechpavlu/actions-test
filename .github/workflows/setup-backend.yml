@@ -1,4 +1,4 @@
-name: Release Lock
+name: Setup Backend
 
 on:
   workflow_dispatch:
