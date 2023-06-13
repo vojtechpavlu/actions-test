@@ -20,7 +20,7 @@ env:
 
 jobs:
   setup-infrastructure:
-    name: Deploy
+    name: Deploy Override
     runs-on: ubuntu-latest
 
     steps:
