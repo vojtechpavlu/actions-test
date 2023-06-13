@@ -1,5 +1,5 @@
 locals {
-  environment        = "dev"
+  environment        = "test"
   security_group_ids = ["sg-0fd8ad29afdc41353"]
   subnet_id          = "subnet-07ceaecc54dfba371"
   key_name           = "terraform-testing"
