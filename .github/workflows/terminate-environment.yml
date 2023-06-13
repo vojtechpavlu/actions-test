@@ -20,7 +20,7 @@ env:
 
 jobs:
   setup-infrastructure:
-    name: Setup Infrastructure
+    name: Terminate ${{ inputs.desired-environment }}
     runs-on: ubuntu-latest
 
     steps:
