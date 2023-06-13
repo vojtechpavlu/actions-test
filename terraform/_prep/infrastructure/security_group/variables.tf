@@ -26,6 +26,12 @@ variable "allow_http" {
   default     = true
 }
 
+variable "allow_http_80" {
+  type        = bool
+  description = "If should be HTTP (port 80) allowed or not"
+  default     = true
+}
+
 variable "tls_ingress_cidr" {
   type        = list(string)
   description = "Who can send into with the SG via TLS"

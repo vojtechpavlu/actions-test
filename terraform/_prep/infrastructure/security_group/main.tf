@@ -33,6 +33,16 @@ module "ingress_http" {
   sg_id       = aws_security_group.sg.id
 }
 
+module "ingress_http_80" {
+  source      = "./sg_rule"
+  count       = var.allow_http_80 ? 1 : 0
+  cidr_blocks = var.http_ingress_cidr
+  port        = 80
+  protocol    = "tcp"
+  rule_type   = "ingress"
+  sg_id       = aws_security_group.sg.id
+}
+
 module "egress_all" {
   source      = "./sg_rule"
   cidr_blocks = var.egress_cidr
