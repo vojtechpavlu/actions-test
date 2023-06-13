@@ -3,7 +3,7 @@ locals {
   security_group_ids = ["sg-0c194e5fe85e0a39b"]
   subnet_id          = "subnet-0c5dab9b31af529c1"
   key_name           = "terraform-testing"
-  latest_version     = "99"
+  latest_version     = "123"
   current_version    = var.override_version && var.parametric_version != "" ? var.parametric_version : local.latest_version
   repository         = "https://github.com/vojtechpavlu/testing-project.git"
   goto_folder        = "testing-project"
