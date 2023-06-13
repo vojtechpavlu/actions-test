@@ -1,7 +1,7 @@
 locals {
   environment        = "dev"
-  security_group_ids = ["sg-0f33be4b8a9a1ff7f"]
-  subnet_id          = "subnet-01086511d733df376"
+  security_group_ids = ["sg-0fd8ad29afdc41353"]
+  subnet_id          = "subnet-07ceaecc54dfba371"
   key_name           = "terraform-testing"
   latest_version     = "99"
   current_version    = var.override_version && var.parametric_version != "" ? var.parametric_version : local.latest_version
