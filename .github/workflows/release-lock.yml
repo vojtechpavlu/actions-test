@@ -8,10 +8,9 @@ on:
         description: Environment you want to release lock from
         required: true
         options:
-          - test
           - dev
+          - test
           - prod
-          - commons
       lock-id:
         type: string
         description: ID of the lock to be released
