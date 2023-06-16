@@ -3,15 +3,19 @@ name: Release Lock
 on:
   workflow_dispatch:
     inputs:
-      desired_environment:
+      desired-environment:
         type: choice
-        description: Pick environment you want to release lock from
+        description: Environment you want to release lock from
         required: true
         options:
           - test
           - dev
           - prod
           - commons
+      lock-id:
+        type: string
+        description: ID of the lock to be released
+        required: true
 
 env:
   TF_VERSION: 1.4.6
@@ -19,10 +23,11 @@ env:
 
 jobs:
   release-lock:
-    name: Force releasing Lock in ${{inputs.desired_environment}}
+    name: Force releasing Lock in ${{ inputs.desired-environment }}
     runs-on: ubuntu-latest
     env:
-      ENVIRONMENT: ${{inputs.desired_environment}}
+      ENVIRONMENT: ${{ inputs.desired-environment }}
+      LOCK_ID: ${{ inputs.lock-id }}
     steps:
       - name: Get the code (Checkout)
         uses: actions/checkout@v2
@@ -35,7 +40,7 @@ jobs:
       - name: Get to Working directory
         id: get_work_dir
         run: |
-          wd_var='./terraform/${{env.ENVIRONMENT}}'
+          wd_var='./terraform/${{ env.ENVIRONMENT }}'
           echo "working_directory=$wd_var" >> "$GITHUB_OUTPUT"
 
       - name: Check Working directory
@@ -44,9 +49,5 @@ jobs:
       - name: Run Terraform
         run: |
           terraform init
-          terraform plan
-          terraform apply -auto-approve
+          terraform force-unlock -force ${{ inputs.LOCK_ID }}
         working-directory: ${{steps.get_work_dir.outputs.working_directory}}
-
-      - name: Check the TF work
-        run: cat '${{steps.get_work_dir.outputs.working_directory}}/${{env.ENVIRONMENT}}_file.txt'
