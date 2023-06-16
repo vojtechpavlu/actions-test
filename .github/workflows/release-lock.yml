@@ -50,5 +50,5 @@ jobs:
       - name: Run Terraform
         run: |
           terraform init
-          terraform force-unlock -force ${{ inputs.LOCK_ID }}
+          terraform force-unlock -force ${{ env.LOCK_ID }}
         working-directory: ${{steps.get_work_dir.outputs.working_directory}}
