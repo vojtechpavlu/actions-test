@@ -1,0 +1,41 @@
+name: Destroy backend
+
+on:
+  workflow_dispatch:
+
+env:
+  TF_VERSION: 1.4.6
+  AWS_DEFAULT_REGION: "us-east-1"
+
+jobs:
+  setup-backend:
+    strategy:
+      matrix:
+        environment: ["dev", "test", "prod", "global"]   # Run for all the environments
+
+    name: Destroy ${{ matrix.environment }} backend
+    runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: ${{ matrix.environment }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    steps:
+      - name: Get the code (Checkout)
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Setup Working directory
+        id: workdir-setup
+        run: echo "working_directory=./terraform/_prep/backend" >> "$GITHUB_OUTPUT"
+
+      - name: Run Terraform
+        run: |
+          env_name=${{env.ENVIRONMENT}}
+          terraform init
+          terraform destroy -auto-approve -var="environment=$env_name"
+        working-directory: ${{steps.workdir-setup.outputs.working_directory}}
