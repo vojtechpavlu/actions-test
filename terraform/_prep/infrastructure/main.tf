@@ -12,6 +12,10 @@ DEV ID: ${module.dev_subnet.subnet_id}
 TEST ID: ${module.test_subnet.subnet_id}
 PROD ID: ${module.prod_subnet.subnet_id}
 
-SGs: ${jsonencode(module.security_groups)}
+SGs: ${jsonencode({
+dev_sg = module.dev_sg.sg_id
+test_sg = module.test_sg.sg_id
+prod_sg = module.prod_sg.sg_id
+})}
 EOF
 }
