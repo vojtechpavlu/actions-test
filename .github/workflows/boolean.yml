@@ -1,0 +1,16 @@
+name: Test Boolean
+
+on:
+  workflow_dispatch:
+    inputs:
+      test-boolean:
+        type: boolean
+        description: Test Boolean
+
+jobs:
+  test-boolean:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test Boolean
+        run: echo ${{ inputs.test-boolean }}
